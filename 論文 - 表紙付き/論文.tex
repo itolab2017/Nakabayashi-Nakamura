@@ -1,0 +1,563 @@
+\documentclass[12pt,oneside]{paper}
+
+\usepackage{float}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{multicol}
+\usepackage{url}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+
+% タイトル
+\title{日報の分析$\cdot$スケジュール管理についての調査研究}
+\author{中林渉$\cdot$中村直登}
+
+\begin{document}
+
+% 行間
+\setlength{\baselineskip}{9truemm}
+
+%文字間
+\kanjiskip=.53zw plus 3pt minus 3pt
+\xkanjiskip=.53zw plus 3pt minus 3pt
+
+% 目次
+\tableofcontents
+%\newpage
+
+%本文
+\chapter{緒言}
+
+	\section{研究の背景}
+	\,本研究室は毎年高専ロボコンに参加している.これまでに三年連続,全国大会に出場しており,
+	今年は地区大会で優勝すること目指した.
+	
+	本大会は例年より,アイデア対決がテーマにあるので,面白要素やデザイン性,オリジナルな機構など,
+	ロボットの重点は毎年どのチームも異なる.今回の地区大会では優勝することを目標にした私たちは,
+	それに向けてロボットを作成してきたが今回は制作などに時間がかかっており,
+	本来の完成予定日を大幅に過ぎ,練習の時間が削れてしまい,
+	初戦の競技を行っている最中に一台が操縦ができなくなるという今までに起きなかった問題が起きて負けてしまった.
+	
+	この結果より考察すると,なにが完成予定日のズレの原因か調べる必要がある.
+	
+	\section{研究の目的}
+	\,我々が普段から日報を書く意味として,全員毎日書いている日報の
+	「問題点・新たに知ったこと・できたこと」から,
+	その日の作業進捗状況が分かる.そのため今回はその日報から,
+	学生が知りたい問題を抽出し,各作業にどのくらいの時間がかかっているのかを
+	見える形にすることで作業効率の低下の要因を分析できるようにする.
+	
+	\section{論文の構成}
+	\,この論文では以下のように構成されている．
+	１章では，研究目的や高専ロボコンを考察したものである．
+
+
+	２章では,実際に日報をデータ化したものである.
+
+
+	3章では,データ化したものから分析したもの.
+
+
+	4章では,ロボコンを経て得た新しい知識として記す.
+
+
+	5章では,本研究のまとめを示す.
+
+
+	6章では,謝辞を示す.
+\chapter{日報の分析}
+
+	\section{テキストマイニング}
+	\,大会の後に今回立てたスケジュールが本当に最適だったかどうかが問題に上がり
+	日報からデータの抽出をすることで問題を解決することになった.
+	問題の解決をするに際して全員の日報を見直す必要があるため文献やネットでその方法を調べたところ,
+	文献やネットでその方法を調べたところ,
+	ウェブ上でのアンケートや文献から数やモノではなく何のまとまりも持たない,いわゆるビッグデータをまとめるには,
+	テキストマイニングが適切であることが分かった.
+	
+	\section{日報のデータ化}
+	そこでWeb上の無料サイトUserlocarテキストマイニングを使って,
+	8人全員が毎日書いている日報の,
+	「問題点・新たに知ったこと・できたこと」から学生の問題点や知ったことを
+	抽出することができるためスケジュールのズレを探すことができると思った.
+	そこで,日報をエクセルに一枚一枚ずつ打ち込み,
+	Web上にある無料のテキストマイニングのサイトUserLocalに入力しデータ化する.
+	
+	\section{実際のデータ化の要領}
+	日報に「CADで設計するときにかみ合わない.」と書かれていた場合,
+	図\ref{fig:gg}のように大要素,中要素,小要素,問題点,新たに知ったこと,できたことに区別して,
+	それをエクセルに入力し,月ごとに内容をまとめ,
+	それをUserLocalに入れて単語の出現頻度などとして表示する.
+	
+	
+	\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width=150mm]{bunrui.JPG}
+	\end{center}
+	\caption{エクセル内で分類}
+	\label{fig:gg}
+	\end{figure}
+	
+	\section{結果の見方について}
+	\,表\ref{table:ggg}のような表がある場合,見方としてスコアと出現頻度が高い単語をその月の重要な単語として見ていく.
+	スコアとは,与えられた文書の中でその単語がどれだけ特徴的であるかを表している.
+	通常はその単語の出現回数が多いほどスコアが高くなりますが,
+	「言う」や「思う」など,どのような種類の文書にも現れやすいような単語については,
+	スコアが低めになっている.
+	例として表\ref{table:ggg}からわかることとしてはモータがスコア7.70と高く,出現頻度が11と二番目に高いためこの単語がこの週の一番大切な単語だとわかる
+	このように4月から10月までの内容を分析していく.
+	
+	\begin{table}[H]
+	\caption{表の見方の例}
+	\begin{center}
+	\includegraphics[width=80mm]{4-2(1).PNG}
+	\end{center}
+	\label{table:ggg}
+	\end{table}
+
+	
+	\section{日報の抽出}
+	表\ref{table:a},表\ref{table:b},表\ref{table:c},表\ref{table:d},
+	表\ref{table:e},表\ref{table:f},表\ref{table:g}にそれぞれ4月から10月分の日報を
+	テキストマイニングしたものを示す.
+	
+	%4月～10月分のデータ
+	\begin{table}[H]
+	\caption{4月のデータ}
+	\begin{center}
+	\includegraphics[width=80mm]{4-2.PNG}
+	\end{center}
+	\label{table:a}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{5月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{5-1.PNG}
+	\end{center}
+	\label{table:b}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{6月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{6-1.PNG}
+	\end{center}
+	\label{table:c}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{7月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{7-1.PNG}
+	\end{center}
+	\label{table:d}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{8月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{8-1.PNG}
+	\end{center}
+	\label{table:e}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{9月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{9-1.PNG}
+	\end{center}
+	\label{table:f}
+	\end{table}
+	
+	\begin{table}[H]
+	\caption{10月のデータ}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{10-1.PNG}
+	\end{center}
+	\label{table:g}
+	\end{table}
+	
+	\section{4月分の日報分析}
+	表\ref{table:h}は4月分のデータの名詞出現頻度とスコアを抜粋したものを示す.
+	これを見てみると「必要」のスコアが低いが出現頻度が高く,
+	「モータ」はスコアが高いが出現頻度が低くなっている.
+	このことから4月はモータに対する知識や構造の理解の必要性があったと推測できる.
+	この時はまだロボコンのロボットの製作に入っていなかったためこの結果になった.
+	\begin{table}[H]
+	\caption{4月のデータの抜粋}
+	\begin{center}
+	\centering
+	\includegraphics[width=70mm]{キャプチャ２.PNG}
+	\end{center}
+	\label{table:h}
+	\end{table}
+	
+	\section{8月分の日報分析}
+	表\ref{table:i}は8月分のデータの動詞の出現頻度とスコアを抜粋したものを示す.
+	これを見てみると「フレーム」のスコアが低いが出現頻度が高く,
+	「配線」はスコアが高いが出現頻度が低くなっている.
+	このことから8月は機械のフレームの加工や,基盤の配線などに対する知識などが必要だったと考えられる.
+	4月と比較してみると,ロボットの制作期間で当初の予定と比べて遅れていたため,
+	夏休みの間ずっと学校に来て電気系の問題やロボットのフレームの制作に取り組んでいたことが推測できる.
+	\begin{table}[H]
+	\caption{8月のデータの抜粋}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{キャプチャ10.PNG}
+	\end{center}
+	\label{table:i}
+	\end{table}
+	
+\chapter{原因分析}
+
+	\section{ズレの原因分析}
+	原因を分析するにあたって日報のテキストマイニングを用いる.
+	7月からすでに遅れが出ているため7月の行動が全体の遅れに関係していると思われる.
+	\begin{table}[H]
+	\caption{7月の日報}
+	\begin{center}
+	\centering
+	\includegraphics[width=80mm]{キャプチャ５.PNG}
+	\end{center}
+	\label{table:j}
+	\end{table}
+	上記の表\ref{table:j}を見て,7月から遅れだしたと仮定するならば,
+	テキストマイニングの結果,「加工」,「部品」,「モータ」
+	の出現頻度が高くスコアも高いので.今回はこの3つに絞って分析する,
+	ちなみに今回「モータ」は「モータドライバ」として日報に書かれているため,
+	「モータドライバ」として記述する.
+	
+	
+	まず「部品」を日報から分析すると以下のようなことが分かった.
+	\begin{itemize}
+		\item 部品がまだ届いていなかった.
+		\item PCでCADを開かないと製作に必要な部品がわからなかった.
+		\item 設計でまだ完全に終わっていない部品が少しある.
+		\end{itemize}
+		
+	次に「加工」を日報から分析すると以下のことが分かった.
+	\begin{itemize}
+		\item フライス加工での切込量を少なくすると時間がかかった.
+		\item 加工手順が分からず部品が製作できなかった.
+		\item 加工をする際に工具の場所がわからなかった.
+		\end{itemize}
+	
+	次に「モータドライバ」を日報から分析すると以下のことが分かった.
+	\begin{itemize}
+		\item 腕のモータドライバの不具合がある.
+		\item 駆動部のモータドライバが燃える.
+		\item 腕のモータドライバのコンデンサが破裂.
+		\end{itemize}
+	
+	スケジュールが後ろに押された原因として以上のことが関係していると思われる.
+	
+	
+	なので日々の授業や課題での経験や知識が必要だと考えられる.
+
+	\section{予定した時間と実際にかかった時間の比較}
+	\,表\ref{table:k}を見てみると,設計,プログラム,電気回路,加工の4つが多くの時間をかけているのが分かる,
+	特に電気回路と加工がより多く時間が
+	かかっていることが読み取れる.
+	\begin{table}[H]
+	\caption{予定時間と実際にかかった時間}
+	\begin{center}
+	\centering
+	\includegraphics[width=100mm]{計画.PNG}
+	\end{center}
+	\label{table:k}
+	\end{table}
+	
+	\section{考察}
+	\,以上で述べた事から,予定の大幅なズレの原因としては以下のものが考えられる.
+	
+	\begin{itemize}
+		\item 注文する部品の選定.
+		\item 部品の加工に対する情報収集や知識不足.
+		\item 電気系の知識.勉強不足による試行錯誤の連続.
+		\item プログラムの不具合の修正.
+		\end{itemize}
+	
+	また,実際に体験したもので
+	\begin{itemize}
+		\item 夢工房までの移動時間.
+		\item 機械の工具の取り付け.
+		\item ライセンス講習による機械の使用禁止.
+		\item 各班員の所用,風邪などによる欠席.
+		\end{itemize}
+	スケジュール的には上記のものを改善できれば十分な練習時間を確保することが出来ると思われる.
+	今回のロボット製作のスケジュールを立てた際.
+	これらの多くが考慮されていなかったため今回のスケジュールは不適切だったと考えられる,
+	実際に自分たちが経験して,注文の仕方,電気系の経験不足を感じた.
+	また.今回全員が書いていた日報は後からデータ化して整理するときに書いてあることがすぐに区別しやすいため,
+	大会で優勝するのに必要なツールと言える,
+	基本的に何時まで作業して,残業は何時までと決めて,調整と練習を同時に行うと,幾何か時間をとれると
+	思われる.
+	
+\chapter{日報から得た役立つ知識}
+	\,今年度のメンバーは高専ロボコンに参加するのはほぼ
+	初めてなメンバーで構成されている.
+	日報の問題点,新たに知ったこと,できたことの内容を集計し,
+	得られた各メンバーの新たに身に着けた知識を以下に記す.
+	
+		\section{機械・加工}
+		\begin{enumerate}
+		\item バカ穴径が通すネジと同じだと組み立ての時に,調整できないから,M3ならば$\phi$3.5くらいにする.
+		
+		\item リベットは軽量なため,分解をしない場所はリベットでとめる.図\ref{fig:1}にその重さを示す.
+		
+		\item 三角形の構造はもっとも強いため,フレームは三角形の集合のように設計する.図\ref{fig:2}にその様子を示す.
+		
+		\item オムニ・メカナムホイールはグリップの効くものを選ぶ.図\ref{fig:3}にそれを示す.
+		
+		\item 今回作ったロボットの腕の関節部には板ラチェットを用いる.図\ref{fig:4}にその様子を示す.
+		
+		\item M2のねじは基本使わないようにする.細すぎるためよほどのことがない限り,用いないほうが良い.
+		
+		\item あまり力のかからない部分の板状の部品は,レーザー加工機でMDF材を加工すると時間短縮につながる.図\ref{fig:5}に実際に使っているレーザー加工機を示す.
+		
+		\item M3の長さ5,10,15mmのねじとナットはすぐに使い切ってしまうのであらかじめ多く購入しておいたほうがよい.
+		
+		\item よくネジが緩むところは,ねじロック剤を塗ると緩まなくなる.図\ref{fig:6}に実際に使用しているものを示す.
+		
+		\item 穴を大量にあけて軽量化するのは大変で時間も手間もかかる.そのため初めの設計段階から重さを考慮する.図\ref{fig:7}に穴あけ加工の写真を示す.
+		
+		\item 薄板に精度が不要で,大きいバカ穴をあけるときはステップドリル(通称タケノコドリル)を用い,ハンドドリルで開けると早い.図\ref{fig:8}にステップドリルを示す.
+		
+		\item 部材を切るときは,長い部材から切ると,部材の余りが出るのを抑えることができる.
+		
+		\item アクリルは割れやすいので注意して設計する.
+		
+		\item アクリルカッタでアクリル板を切断するときに綺麗に真っ直ぐ
+			  切断できる.図\ref{fig:9}にアクリルカッタを示す.
+		
+		\item バネを上手く使うと機構を軽量化できる.
+		
+		\item 組み立てをする際に順番を考えないとネジが締めにくくなる.
+		
+		\item 輪ゴムは劣化して引っ張る力が減少するので使わない.バネを使った方がよい.図\ref{fig:10}にバネを使った部品を示す.
+		
+		\item ロボの旋回時に発生する遠心力で独立した部品が飛んでいくので,何かしらの形でロボと接続させる.図\ref{fig:11}に銅板を使った留め具を示す.
+		
+		\begin{figure}[H]
+		\begin{center}
+		\centering
+		\includegraphics[width=80mm]{omo.png}
+		\end{center}
+		\caption{リベット使用時の単体の重さ}
+		\label{fig:1}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=120mm]{san.png}
+		\end{center}
+		\caption{三角構造で組んだフレーム}
+		\label{fig:2}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{omuni.jpg}
+		\end{center}
+		\caption{オムニ・メカナムホイール}
+		\label{fig:3}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{kura.png}
+		\end{center}
+		\caption{腕部に用いた板ラチェット}
+		\label{fig:4}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{reza.png}
+		\end{center}
+		\caption{レーザー加工機}
+		\label{fig:5}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{lock.png}
+		\end{center}
+		\caption{実際使っているねじロック剤}
+		\label{fig:6}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{ana.png}
+		\end{center}
+		\caption{穴あけ軽量}
+		\label{fig:7}
+		\end{figure}
+
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=95mm]{takenoko.jpg}
+		\end{center}
+		\caption{ステップドリル}
+		\label{fig:8}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=120mm]{kata.png}
+		\end{center}
+		\caption{アクリルカッタ}
+		\label{fig:9}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=100mm]{katapa.png}
+		\end{center}
+		\caption{金属バネを用いたカタパルト}
+		\label{fig:10}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{dou.png}
+		\end{center}
+		\caption{銅板による紙飛行機固定部}
+		\label{fig:11}
+		\end{figure}
+		
+		\end{enumerate}
+		
+		\section{電気系}
+		\begin{enumerate}
+		\item 信号がノイズに弱いから,信号線と電源線を分けて配線する.
+		
+		\item 部品の名前をいち早く覚える.全員がある程度把握していると人に発注を頼んだ時や問題の目星を付けやすい.
+		
+		\item 電線の太さに気をつける.大電流が流れる線には太いものを用いる.
+		
+		\item 信号線はねじってアルミホイルで包んでおくことで,ノイズが発生しにくくなる.
+		
+		\item モータの付近等,機械部品の近くで線を切るときは,線の切れ端が機械に巻き込まれないように注意する.モータの中に入るとモータが壊れる.
+		
+		\item ロボットの主電源を入れる前に（バッテリーをつなぐ前に）必ず,テスターで短絡確認を行う.
+		
+		\item ヒューズ管を用いると,全体の回路が壊れるのを阻止できる可能性ができる.図\ref{fig:12}に使ったガラスヒューズ管を示す.
+		
+		\item はんだ吸い取り器を用いるときは,ランドごと吸い取らないように気を付ける.
+		
+		\item ランドの温度をあげないと,はんだが早く溶けない.図\ref{fig:13}にハンダ付けの様子を示す.
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{hyuzu.png}
+		\end{center}
+		\caption{ガラス管ヒューズ}
+		\label{fig:12}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{kiba.png}
+		\end{center}
+		\caption{基板}
+		\label{fig:13}
+		\end{figure}
+		
+		\end{enumerate}
+		
+		\subsection{データ系}
+		\begin{enumerate}
+		\item 図面には加工に必要な情報を入れる.
+		
+		\item 寸法に変更があった場合加工者が加工に行く前に,図面に記入しておく.
+		
+		\item 日報はより細かくその日の事柄を書かないと,後でまとめる時まとめられない.
+		
+		\item 空白はデータ量が減るため,何かしら書いた方がよい.
+		
+		\item 日報に関係のないことがかかれているものがある.
+		      データ化するときに支障をきたすため,関係のないことは書かない方がよい.図\ref{fig:14},にその日報の内容を示す.
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=80mm]{nippou1.JPG}
+		\end{center}
+		\caption{日報の内容例1}
+		\label{fig:14}
+		\end{figure}
+		
+		\end{enumerate}
+		
+\chapter{結言}
+
+	\section{本研究まとめ}
+	\,今回のロボコンは本番前にあまり練習できなかったため練習で起きなかった問題が本番で起きてしまい,
+	その問題に対応できなかったため負けてしまった.そこで我々は予定のズレが練習できなかった原因だと推測し,
+	この原因を全員毎日書いている日報から探すことにした.その結果部品や加工,モータドライバに絞ってズレの原因を分析し,遅れていた原因を見つけた.
+	また今回のロボコンでは日報が役に立つことが分かったので,さらに見やすく,まとめやすい新しい日報のフォーマットを考えた.新しい日報を図\ref{fig:17}に示す.
+	そして比較のため今まで使っていた日報を図\ref{fig:16}に示す.
+	
+	\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=150mm]{kyunippo.JPG}
+		\end{center}
+		\caption{前回までの日報}
+		\label{fig:16}
+		\end{figure}
+		
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=150mm]{sinnippo.JPG}
+		\end{center}
+		\caption{新しい日報}
+		\label{fig:17}
+		\end{figure}
+	
+	\section{今後の課題}
+	\,今回からようやく知識の蓄えが本研究室で行われるようになり,
+	今後の学生がスムーズに活動が
+	できるようになると思われるが,知識の蓄積には終わりがない.
+	そのため,今後の学生たちも学んだことがあれば随時,資料として追加して行くことで,
+	高専ロボコンで勝てるようになるのではないかと思われる.
+	また,今回のデータ化の際に起こった問題点として,『特になし』や,空白のものがあったり,
+	『足回り』や『ヒューズ』といった単語だけで区別しにくいものがあったり,
+	どのくらいの時間がかかっているのかも分からないものがほとんどだった.
+	なので次回の日報からは,各作業にどの程度の時間がかかって,
+	その作業が終わったか,終わってないかを明確に記述できるものを残したいと思う.
+	図\ref{fig:18}に示す全員分の日報は次のロボコンに役に立ててほしいため残そうと思う.
+	
+		\begin{figure}[H]
+		\begin{center}
+		\includegraphics[width=100mm]{fa.png}
+		\end{center}
+		\caption{今までの全員の日報}
+		\label{fig:18}
+		\end{figure}
+	
+	
+
+\chapter*{謝辞}
+\addcontentsline{toc}{chapter}{謝辞}
+	今年最後の高専生として本気で地区大会優勝を狙って臨んだが,
+	十分な練習ができず本番で想定していなかった問題が発生したため負けてしまった.
+	今回の分析結果を今後のために残し,来年以降の本研究室で役に立ち,
+	高専ロボコンで勝つことを願っている.
+
+	\,本論文作成にあたり大会参加の準備,テーマの決定,研究の考え方,
+	まとめ方,アイデアの開示など全てにおいて長期にわたって厳しくも熱意のあるご指導,
+	ご鞭撻していただいた,伊藤恒平教授,林道大教授に厚く御礼申し上げます.
+	また,その他ご助力いただいた方々にも厚く御礼申し上げます.
+	
+	\begin{thebibliography}{1}
+	\bibitem{ros}\url{http://textmining.userlocal.jp/}
+	\end{thebibliography}
+
+\end{document}
